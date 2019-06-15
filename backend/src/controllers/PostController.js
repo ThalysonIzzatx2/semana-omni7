@@ -8,8 +8,9 @@ module.exports = {
     const posts = await Post.find().sort('-createdAt');
     return res.json(posts);
   },
+
   async store(req, res) {
-    const { author, place, description, hashtag } = req.body;
+    const { author, likes, place, description, hashtags } = req.body;
     const { filename: image } = req.file;
 
     const [name] = image.split('.');
@@ -26,9 +27,10 @@ module.exports = {
 
     const post = await Post.create({
       author,
+      likes,
       place,
       description,
-      hashtag,
+      hashtags,
       image: fileName
     });
 
